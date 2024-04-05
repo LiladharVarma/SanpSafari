@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+:root {
+    --font-dank-mono: "Dank Mono", monospace;
+  }
+
+*{
+    margin:  0 ;
+    padding : 0 ; 
+    box-sizing: border-box ;
+}
+
+body{
+    background-color: black;
+    color: white;
+    font-family: var(--font-dank-mono);
+}
+
+.gallary {
+    column-count: 5;
+    column-gap: 5px;
+    padding: 0rem 1rem;
+
+
+  }
+  @media screen and (max-width: 480px) {
+    .gallary {
+      position: absolute;
+ 
+      column-count: 2; /* Set to a single column layout for smaller screens */
+      column-gap: 5px; /* No gap between columns */
+      padding: 0.5rem; /* Adjust padding for better spacing */
+    }
+  }
