@@ -4,7 +4,7 @@ import Skeleton from "@mui/material/Skeleton";
 
 function ImageSkeleton() {
   return (
-    <div className="w-full mt-1 mb-1 flex flex-col md:flex-row">
+    <div className="w-full mt-1 mb-1 flex flex-col md:flex-row gap-2">
       <div className="w-full sm:w-[75%] ">
         <Skeleton
           variant="rounded"
