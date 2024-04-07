@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Stack } from "@mui/material";
-import DownloadIcon from "@mui/icons-material/Download";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import InstagramIcon from "@mui/icons-material/Instagram";
-import { Link, NavLink } from "react-router-dom";
+
 
 const ImageCard = (props) => {
   const [displayStyle, setDisplayStyle] = useState(true);
@@ -49,16 +48,14 @@ const ImageCard = (props) => {
             displayStyle ? "sm:w-[75%] pl-4 pr-4" : "w-full"
           } pl-0 pr-0`}
         >
-          <NavLink to={`/image/${props.url}`}>
-            <img
-              className="w-full object-cover"
-              src={props.url}
-              alt="trial-Images"
-              onClick={() => {
-                handleClick;
-              }}
-            />
-          </NavLink>
+          <img
+            className="w-full object-cover"
+            src={props.url}
+            alt="trial-Images"
+            onClick={() => {
+              handleClick;
+            }}
+          />
         </div>
         <div
           className={`${
@@ -73,14 +70,16 @@ const ImageCard = (props) => {
               // border={"2px solid blue"}
               style={{ margin: "10px" }}
             >
-              <p className="flex gap-1"> 
+              <p className="flex gap-1  hover:text-white  text-gray-500">
                 <InstagramIcon />
                 {props.instagram_username}
               </p>
-              <p className="flex gap-1">
-                <CameraAltIcon />
-                {props.name}
-              </p>
+              {props.name && (
+                <p className="flex gap-1  hover:text-white text-gray-500 ">
+                  <CameraAltIcon />
+                  {props.name}
+                </p>
+              )}
             </Stack>
             <Stack
               spacing={1.2}
@@ -88,21 +87,24 @@ const ImageCard = (props) => {
               style={{ margin: "10px" }}
               color={"gray"}
             >
-              {props.isRandom && (
-                <div className="flex flex-col">
-                  <p>{props.focal_length}mm</p>
+              {/* {props.isRandom && ( */}
+              <div className="flex flex-col">
+                {props.focal_length && <p>{props.focal_length}mm</p>}
+                {props.aperture && (
                   <p>
-                    <span className="italic ">f</span>/{props.aperture}
+                    <span className="italic">f</span>/{props.aperture}
                   </p>
-                  <p>{props.exposure_time}s</p>
-                  <p>ISO {props.iso}</p>
-                </div>
-              )}
+                )}
+                {props.exposure_time && <p>{props.exposure_time}s</p>}
+                {props.iso && <p>ISO {props.iso}</p>}
+              </div>
+              {/* )} */}
+
               <p>{formattedDate}</p>
               <p>Views {props.views}</p>
               <p>Likes {props.likes}</p>
               <button
-                className="border-2 border-solid border-gray-500 text-white hover:border-white rounded-lg p-2"
+                className="border-2 border-solid border-gray-500 text-gray hover:border-white hover:text-white rounded-lg p-2"
                 onClick={() => downloadPhoto(props.url)}
               >
                 Download Image
