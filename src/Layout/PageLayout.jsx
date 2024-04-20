@@ -6,10 +6,16 @@ const PageLayout = (props) => {
   const [gotFromNav, setNav] = useState(true);
   const [text, setText] = useState("");
   const [clicked, setClicked] = useState(false);
+  const [theme , setTheme] = useState(true) ; 
 
   function getStyleFromNav(style) {
     setNav(style);
     props.getStyle(gotFromNav);
+  }
+
+  function getThemeFromNav(currentTheme){
+    setTheme(currentTheme); 
+    props.getCurrentTheme(theme) ; 
   }
 
   function getText(receivedText, fetch) {
@@ -24,8 +30,8 @@ const PageLayout = (props) => {
   }, [text, clicked]);
 
   return (
-    <div>
-      <Navbar getStyle={getStyleFromNav} getQuery={getText} />
+    <div className="relative">
+      <Navbar getStyle={getStyleFromNav} getQuery={getText} getTheme = {getThemeFromNav} />
       <Outlet />
     </div>
   );

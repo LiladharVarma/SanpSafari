@@ -7,11 +7,23 @@ function App() {
   const [style, setStyle] = useState(true);
   const [text, setText] = useState("");
   const [searchClicked, setClicked] = useState(false);
+  const [theme , setTheme] = useState(true) ; 
 
   function getStatesFromLayout(receivedText, clicked) {
     setText(receivedText);
     setClicked(clicked);
   }
+
+  useEffect(()=> {
+    if(theme === true){
+      document.documentElement.classList.add("dark") ; 
+    }else{
+      document.documentElement.classList.remove("dark") ; 
+      document.documentElement.classList.add("light") ; 
+
+    }
+
+  }, [theme]) ; 
 
   // useEffect(() => {
   //   console.log("from App ", text);
@@ -20,10 +32,13 @@ function App() {
   function getDisplayStyle(style) {
     setStyle(style);
   }
+  function getTheme(receivedTheme){
+    setTheme(receivedTheme) ; 
+  }
   return (
     <Router>
      
-      <div>
+      <div className="bg-white text-white dark:bg-black dark:white">
         <Routes>
           <Route
             path="/"
@@ -31,6 +46,7 @@ function App() {
               <PageLayout
                 getStyle={getDisplayStyle}
                 getState={getStatesFromLayout}
+                getCurrentTheme = {getTheme}
               />
             }
           >

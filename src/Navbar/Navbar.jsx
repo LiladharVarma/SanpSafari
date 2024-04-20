@@ -7,18 +7,25 @@ import CalendarViewMonthIcon from "@mui/icons-material/CalendarViewMonth";
 import Crop75Icon from "@mui/icons-material/Crop75";
 import ClearIcon from "@mui/icons-material/Clear";
 import HistoryIcon from "@mui/icons-material/History";
+import LightModeIcon from '@mui/icons-material/LightMode';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
 const Navbar = (props) => {
   const [normal, setNormal] = useState(true);
   const [text, setText] = useState("");
   const [fetch, setFetch] = useState(false);
   const [open, setOpen] = useState(false);
   const [recentSearches, setRecentSearches] = useState([]);
+  const [theme, setTheme] = useState(true);
 
   //upadtes display tyle whether grid or normal
   function handleNormalClick() {
     setNormal(true);
+    setTheme((prev) => !prev);
     props.getStyle(normal);
+
+    props.getTheme(theme);
   }
+ 
   // function handleGridClick() {
   //   setNormal("grid");
   //   props.getStyle(normal);
@@ -103,22 +110,24 @@ const Navbar = (props) => {
     setOpen(false);
   }
   return (
-    <div className=" flex flex-wrap relative justify-between items-center p-5">
+    <div className=" flex flex-wrap relative justify-between items-center p-5 ">
       <div className="flex flex-wrap gap-4 items-center">
         <button
           onClick={handleNormalClick}
           className="btn border-[1.5px] border-solid border-slate-800 rounded-lg    pl-2 pr-2 p-1"
         >
-          <Crop75Icon fontSize="medium" />
+          {/* <Crop75Icon fontSize="medium" /> */}
+          {theme ? <LightModeIcon  /> : <DarkModeIcon style={{color : "black"}}   /> }
         </button>
 
         <button
-          className=" border-[1.5px] border-solid border-slate-800 rounded-lg    pl-2 pr-2 p-1 hover:bg-slate-950"
+          className=" border-[1.5px] border-solid border-slate-800 rounded-lg    pl-2 pr-2 p-1 dark:hover:bg-slate-950"
           onClick={() => {
             setOpen(true);
           }}
         >
-          <SearchIcon />
+        {theme ? <SearchIcon /> :  <SearchIcon  style={{ color: 'black' }} />}
+          {/* <SearchIcon /> */}
         </button>
         <Modal
           open={open}
@@ -127,10 +136,10 @@ const Navbar = (props) => {
           aria-describedby="modal-modal-description"
           className="flex items-center justify-center "
         >
-          <div className="border-[1px] border-solid border-slate-800 rounded-lg outline-none max-h-96 overflow-y-scroll w-[550px] flex flex-col  items-center bg-black p-4 ">
+          {/* <div className="border-[1px] border-solid border-slate-800 rounded-lg outline-none max-h-96 overflow-y-scroll w-[550px] flex flex-col  items-center bg-white dark:bg-black text-black dark:text-white  p-4 ">
             <form className="w-full" onSubmit={handleSearch}>
               <input
-                className="text-white bg-black border-[1px] border-solid border-slate-800 w-full p-2 rounded-lg focus:border-2 focus:outline-none focus:text-white   placeholder:text-slate-600 focus:border-solid focus:border-slate-800"
+                className="text-black dark:text-white bg-white dark:bg-black  border-[1px] border-solid border-slate-800 w-full p-2 rounded-lg focus:border-2 focus:outline-none focus:text-white   placeholder:text-slate-600 focus:border-solid focus:border-slate-800"
                 placeholder="Search photos"
                 type="text"
                 value={text}
@@ -139,6 +148,19 @@ const Navbar = (props) => {
                 }}
                 onChange={handleChange}
                 // focus:outline-[1.5px] focus:outline-solid focus:outline-white
+              />
+            </form> */}
+          <div className="border-[1px] border-solid border-slate-800 rounded-lg outline-none max-h-96 overflow-y-scroll w-[550px] flex flex-col items-center bg-white dark:bg-black text-black dark:text-white p-4 ">
+            <form className="w-full" onSubmit={handleSearch}>
+              <input
+                className="text-black dark:text-white bg-white dark:bg-black border-[1px] border-solid border-slate-800 w-full p-2 rounded-lg focus:border-2 focus:outline-none  placeholder:text-slate-600 focus:border-solid focus:border-slate-800"
+                placeholder="Search photos"
+                type="text"
+                value={text}
+                onClick={() => {
+                  setText("");
+                }}
+                onChange={handleChange}
               />
             </form>
             <Stack
@@ -157,8 +179,8 @@ const Navbar = (props) => {
               )}
               {recentSearches.map((item, index) => {
                 return (
-                  <div className="flex items-center w-full gap-2  justify-between">
-                    <div className="flex items-center w-full hover:border-[1.5px] hover:border-solid hover:border-slate-800 hover:bg-slate-900 p-2 rounded-lg gap-2">
+                  <div className="flex items-center w-full gap-2  justify-between dark:text-white">
+                    <div className="flex items-center w-full dark:hover:border-[1.5px] dark:hover:border-solid dark:hover:border-slate-800 dark:hover:bg-slate-900 p-2 rounded-lg gap-2 hover:border-[1.5px]  hover:border-solid  hover:border-slate-800   ">
                       <HistoryIcon fontSize="small " />
                       <p
                         className="cursor-pointer w-full "
@@ -179,7 +201,9 @@ const Navbar = (props) => {
                         deleteSearch(index);
                       }}
                     >
-                      <ClearIcon />
+                {theme ? <ClearIcon /> : <ClearIcon style={{ color: 'black' }} />}
+
+                     
                     </p>
                   </div>
                 );
@@ -194,7 +218,7 @@ const Navbar = (props) => {
                 </p>
                 {["Nature", "Rain", "Cars", "Cricket", "Forest"].map((item) => (
                   <p
-                    className="cursor-pointer hover:border-[1.5px] hover:border-solid hover:border-slate-800 hover:bg-slate-900 p-2 rounded-lg"
+                    className="cursor-pointer dark:hover:border-[1.5px] dark:hover:border-solid dark:hover:border-slate-800 dark:hover:bg-slate-900 p-2 rounded-lg gap-2 hover:border-[1.5px]  hover:border-solid  hover:border-slate-800   "
                     onClick={(e) => {
                       setTextFromList(item, e);
                     }}
@@ -208,7 +232,7 @@ const Navbar = (props) => {
         </Modal>
       </div>
       <div className="absolute inset-y-0 right-0 mr-4 top-4 ">
-        <h2 className="text-lg sm:text-xl hover:text-gray-500 cursor-pointer">
+        <h2 className="text-lg sm:text-xl hover:text-gray-500 dark:text-white text-black cursor-pointer">
           SnapSafari.com
         </h2>
       </div>

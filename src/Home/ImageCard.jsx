@@ -70,12 +70,12 @@ const ImageCard = (props) => {
               // border={"2px solid blue"}
               style={{ margin: "10px" }}
             >
-              <p className="flex gap-1  hover:text-white  text-gray-500">
+              <p className="flex gap-1  dark:hover:text-white hover:text-black  text-gray-500">
                 <InstagramIcon />
                 {props.instagram_username}
               </p>
               {props.name && (
-                <p className="flex gap-1  hover:text-white text-gray-500 ">
+                <p className="flex gap-1  dark:hover:text-white hover:text-black  text-gray-500 ">
                   <CameraAltIcon />
                   {props.name}
                 </p>
@@ -104,7 +104,7 @@ const ImageCard = (props) => {
               <p>Views {props.views}</p>
               <p>Likes {props.likes}</p>
               <button
-                className="border-2 border-solid border-gray-500 text-gray hover:border-white hover:text-white rounded-lg p-2"
+                className="border-2 border-solid border-gray-500 text-gray dark:hover:border-white dark:hover:text-white hover:text-black rounded-lg p-2 "
                 onClick={() => downloadPhoto(props.url)}
               >
                 Download Image
